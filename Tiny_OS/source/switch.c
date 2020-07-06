@@ -5,20 +5,20 @@ __asm void PendSV_Handler(void)
 	
 	LDR R0, =_block_ptr    // LDR伪指令：将指定标号的值赋给r0
 	LDR R0, [R0]           // LDR指令：将存储器地址为R0的字数据读入寄存器R0. (通俗解释：从R0寄存器指向的地址中取出一个字的数据，存储到R1寄存器中)
-	LDR R0, [R0]
+	LDR R0, [R0]           // 这条指令的意思是，将R1中的值作为地址，将地址里面存的值复制给寄存器R0
 
 	STMDB	R0!, {R4-R11}  // 将寄存器压栈（保存寄存器的值）
 	
-	LDR R1, =_block_ptr
+	LDR R1, =_block_ptr    // LDR伪指令：将指定标号的值赋给r1
 	LDR R1, [R1]
-	STR R0, [R1]           // 
+	STR R0, [R1]           // 这条指令的意思是，将R0里面的值，复制到以R1里面的值作为地址的内存里面。
 	
 	ADD R4, R4, #1
 	ADD R5, R5, #1
 	
 	LDMIA   R0!, {R4-R11}  // 寄存器弹出栈（恢复寄存器的值）
 	
-	BX LR
+	BX LR                  // 的作用等同于 mov  pc,lr  即跳转到lr中存放的地址处。lr就是连接寄存器(Link Register, LR)
 }
 
 
