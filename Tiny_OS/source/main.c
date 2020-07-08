@@ -18,8 +18,8 @@ typedef struct
 }_Bolck_tpye_t;
 
 
-_Bolck_tpye_t * _block_ptr;
-
+_Bolck_tpye_t  *_block_ptr;
+_Bolck_tpye_t  block;				// 
 
 void delay(int count)               // 延时函数
 {
@@ -29,12 +29,11 @@ void delay(int count)               // 延时函数
 
 int flag;
 unsigned long stack_buffer[1024];   // 缓冲区 用于保存 R4到R11寄存器的值
-_Bolck_tpye_t block;				// 
 
 
 int main()
 {
-    block.stack_ptr = &stack_buffer[1024];
+    block.stack_ptr = &stack_buffer[1024];    // 改地址为stack_buffer[]数组越界处的地址  
     _block_ptr = &block;            // 对结构进行初始化
     for(;;)
     {
@@ -44,5 +43,11 @@ int main()
         delay(100);        
 		triggPendSVC();
     }
-
 }
+
+
+
+
+
+
+
